@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CRUD desarrolladores",
+            "request": "launch",
+            "mainClass": "App",
+            "env": {
+                "DB_URL": "jdbc:mysql://localhost/pi_asignacion_proyectos",
+                "DB_USER": "usuario",
+                "DB_PASSWORD": "user1234",
+            }
+        }
+    ]
+}
