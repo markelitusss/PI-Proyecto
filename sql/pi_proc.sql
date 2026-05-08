@@ -49,3 +49,47 @@ BEGIN
 
 END //
 DELIMITER ;
+
+DELIMITER //
+DROP PROCEDURE sp_upd_desarrollador //
+CREATE PROCEDURE sp_upd_desarrollador(
+    IN p_id INT,
+    IN p_DNI VARCHAR(10),
+    IN p_nombre VARCHAR(50),
+    IN p_apellido1 VARCHAR(50),
+    IN p_apellido2 VARCHAR(50),
+    IN p_email VARCHAR(100),
+    IN p_fecha_alta DATE
+)
+BEGIN
+    -- el procedimiento utiliza SQL dińamico para ejecutar varias veces
+    -- una sentencia de actualización.
+    -- basándonos en el ID del desarrollador actualizamos todos sus datos.
+    SET @declaracion = 'UPDATE desarrollador SET ? = ? WHERE id = ?';
+    PREPARE prepared_stmt FROM @declaracion;
+
+    SET @id = p_id;
+    SET @DNI = p_DNI;
+    SET @nombre = p_nombre;
+    SET @apellido1 = p_apellido1;
+    SET @apellido2 = p_apellido2;
+    SET @email = p_email;
+    SET @fecha_alta = p_fecha_alta;
+
+    -- necesitamos hacerlo de esta manera porque la cláusula USING solo acepta variables de usuario
+    SET @campo = 'DNI';
+    EXECUTE prepared_stmt USING @campo, @DNI, @id;
+    SET @campo = 'nombre';
+    EXECUTE prepared_stmt USING @campo, @nombre, @id;
+    SET @campo = 'apellido1';
+    EXECUTE prepared_stmt USING @campo, @apellido1, @id;
+    SET @campo = 'apellido2';
+    EXECUTE prepared_stmt USING @campo, @apellido2, @id;
+    SET @campo = 'email';
+    EXECUTE prepared_stmt USING @campo, @email, @id;
+    SET @campo = 'fecha_alta';
+    EXECUTE prepared_stmt USING @campo, @fecha_alta, @id;
+
+    DEALLOCATE PREPARE prepared_stmt;
+END //
+DELIMITER ;
