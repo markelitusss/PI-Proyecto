@@ -59,7 +59,9 @@ CREATE TABLE asignacion (
 );
 
 -- Creacion usuario 
-DROP USER usuario@'%';
+DROP USER IF EXISTS usuario@'%';
+SET GLOBAL validate_password.policy = LOW;
+SET GLOBAL validate_password.length = 4;
 CREATE USER usuario@'%' IDENTIFIED BY 'user1234';
 
 -- Asignación de permisos
