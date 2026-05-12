@@ -61,17 +61,17 @@ public class App {
                         // inserción: pedimos todos los datos y ejecutamos la función
                         case 1 -> {
                             System.out.print("Introduzca el DNI del desarrollador: ");
-                            String DNI = sc.next();
+                            String DNI = sc.nextLine();
                             System.out.print("Introduzca el nombre del desarrollador: ");
-                            String nombre = sc.next();
+                            String nombre = sc.nextLine();
                             System.out.print("Introduzca el primer apellido del desarrollador: ");
-                            String apellido1 = sc.next();
+                            String apellido1 = sc.nextLine();
                             System.out.print("Introduzca el segundo apellido del desarrollador: ");
-                            String apellido2 = sc.next();
+                            String apellido2 = sc.nextLine();
                             System.out.print("Introduzca el email del desarrollador: ");
-                            String email = sc.next();
+                            String email = sc.nextLine();
                             System.out.print("Introduzca la fecha de alta del desarrollador (YYYY-MM-DD): ");
-                            String fecha_alta = sc.next();
+                            String fecha_alta = sc.nextLine();
 
                             Desarrollador d = new Desarrollador(0, DNI, nombre, apellido1, apellido2, email, fecha_alta);
                             System.out.println(CRUD.insertarBD(con, d));
@@ -93,17 +93,17 @@ public class App {
                             sc.nextLine();
 
                             System.out.print("Introduzca el DNI del desarrollador: ");
-                            String DNI = sc.next();
+                            String DNI = sc.nextLine();
                             System.out.print("Introduzca el nombre del desarrollador: ");
-                            String nombre = sc.next();
+                            String nombre = sc.nextLine();
                             System.out.print("Introduzca el primer apellido del desarrollador: ");
-                            String apellido1 = sc.next();
+                            String apellido1 = sc.nextLine();
                             System.out.print("Introduzca el segundo apellido del desarrollador: ");
-                            String apellido2 = sc.next();
+                            String apellido2 = sc.nextLine();
                             System.out.print("Introduzca el email del desarrollador: ");
-                            String email = sc.next();
+                            String email = sc.nextLine();
                             System.out.print("Introduzca la fecha de alta del desarrollador (YYYY-MM-DD): ");
-                            String fecha_alta = sc.next();
+                            String fecha_alta = sc.nextLine();
 
                             Desarrollador d = new Desarrollador(id, DNI, nombre, apellido1, apellido2, email, fecha_alta);
                             System.out.println(CRUD.actualizarBD(con, d));
