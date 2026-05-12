@@ -93,3 +93,13 @@ BEGIN
     DEALLOCATE PREPARE prepared_stmt;
 END //
 DELIMITER ;
+
+DELIMITER //
+DROP PROCEDURE sp_del_desarrollador //
+CREATE PROCEDURE sp_del_desarrollador (IN p_id)
+BEGIN
+    -- el procedimiento elimina de la tabla desarrollador el registro con el ID indicado
+
+    DELETE FROM desarrollador WHERE id = p_id;
+END
+DELIMITER ;
