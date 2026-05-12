@@ -6,6 +6,8 @@ import java.sql.*;
 
 public class CRUD {
     
+    // función que devuelve una conexión abierta o null en caso de no poder conectar
+    // requiere la URL de la BD, usuario y contraseña (los tenemos en el archivo launch.json)
     public static Connection conectar(String url, String user, String password) {
         Connection con = null;
 
@@ -23,6 +25,9 @@ public class CRUD {
         return con;
     }
 
+    // función que ejecuta el procedimiento de consulta
+    // requiere el ID del desarrollador
+    // devuelve el resultado del método toString() tras crear un objeto Desarrollador con los datos de la consulta
     public static String consultarBD(Connection con, int id) {
         try {
             String sql = "CALL sp_get_desarrollador(?)";
@@ -43,6 +48,9 @@ public class CRUD {
         }
     }
 
+    // función que ejecuta el procedimiento de inserción
+    // requiere un objeto de la clase Desarrollador para insertar sus atributos en la BD
+    // devuelve el ID del desarrollador insertado
     public static String insertarBD(Connection con, Desarrollador d) {
         try {
             int id = -1;
@@ -55,9 +63,10 @@ public class CRUD {
             cs.setString(4, d.getApellido2());
             cs.setString(5, d.getEmail());
             cs.setString(6, d.getFechaAlta());
-            cs.setInt(7, id);
 
             cs.execute();
+
+            id = cs.getInt(7);
 
             return "Desarrollador añadido correctamente con ID " + id;
         }
@@ -66,6 +75,9 @@ public class CRUD {
         }
     }
 
+    // función que ejecuta el procedimiento de actualización
+    // requiere un objeto de la clase Desarrollador para buscar por ID y actualizar todos los datos
+    // devuelve el ID del desarrollador modificado
     public static String actualizarBD(Connection con, Desarrollador d) {
         try {
             String sql = "CALL sp_upd_desarrollador(?, ?, ?, ?, ?, ?, ?)";
@@ -88,6 +100,9 @@ public class CRUD {
         }
     }
 
+    // función que ejecuta el procedimiento de borrado
+    // requiere el ID del desarrollador
+    // devuelve un mensaje de confirmación
     public static String eliminarBD(Connection con, int id) {
         try {
             String sql = "CALL sp_del_desarrollador(?)";

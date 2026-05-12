@@ -13,11 +13,14 @@ public class App {
     private static final String password = System.getenv("DB_PASSWORD");
 
     public static void main(String[] args) {
+        // objeto scanner y variables para recoger la selección del usuario en los menús
         Scanner sc = new Scanner(System.in);
         int input1, input2;
 
+        // conexion a la BD
         Connection con = CRUD.conectar(url, user, password);
 
+        // primer menú
         do {
             System.out.println("-------- ASIGNACION DE PROYECTOS --------");
             System.out.println("1. Clientes");
@@ -28,14 +31,17 @@ public class App {
             System.out.println("-----------------------------------------");
             System.out.print("\nElige una opción del menú: ");
 
+            // recogemos entrada
             input1 = sc.nextInt();
             sc.nextLine();
 
+            // si el usuario selecciona cualquier otra tabla que no sea desarrollador
             if (input1 != 3 && input1 != 0) {
                 System.out.println("--------------------------");
                 System.out.println("| OPCION EN CONSTRUCCION |");
                 System.out.println("--------------------------\n");
             }
+            // si selecciona la tabla desarrollador entra en el segundo menú
             else if (input1 == 3) {
                 do {
                     System.out.println("\n-------- MANTENIMIENTO TABLA DESARROLLADOR --------");
@@ -47,28 +53,31 @@ public class App {
                     System.out.println("---------------------------------------------------");
                     System.out.print("\n Elige una opción del menú: ");
                     
+                    // recogemos entrada
                     input2 = sc.nextInt();
                     sc.nextLine();
 
                     switch (input2) {
+                        // inserción: pedimos todos los datos y ejecutamos la función
                         case 1 -> {
                             System.out.print("Introduzca el DNI del desarrollador: ");
                             String DNI = sc.next();
                             System.out.print("Introduzca el nombre del desarrollador: ");
                             String nombre = sc.next();
-                            System.out.println("Introduzca el primer apellido del desarrollador: ");
+                            System.out.print("Introduzca el primer apellido del desarrollador: ");
                             String apellido1 = sc.next();
-                            System.out.println("Introduzca el segundo apellido del desarrollador: ");
+                            System.out.print("Introduzca el segundo apellido del desarrollador: ");
                             String apellido2 = sc.next();
-                            System.out.println("Introduzca el email del desarrollador: ");
+                            System.out.print("Introduzca el email del desarrollador: ");
                             String email = sc.next();
-                            System.out.println("Introduzca la fecha de alta del desarrollador (YYYY-MM-DD)");
+                            System.out.print("Introduzca la fecha de alta del desarrollador (YYYY-MM-DD): ");
                             String fecha_alta = sc.next();
 
                             Desarrollador d = new Desarrollador(0, DNI, nombre, apellido1, apellido2, email, fecha_alta);
                             System.out.println(CRUD.insertarBD(con, d));
                         }
 
+                        // consulta: pedimos el ID y ejecuta la función
                         case 2 -> {
                             System.out.print("Introduzca el ID del desarrollador: ");
                             int id = sc.nextInt();
@@ -77,6 +86,7 @@ public class App {
                             System.out.println(CRUD.consultarBD(con, id));
                         }
 
+                        // actualización: pedimos todos los datos empezando por el ID y ejecutamos la función
                         case 3 -> {
                             System.out.print("Introduzca el ID del desarrollador: ");
                             int id = sc.nextInt();
@@ -86,19 +96,20 @@ public class App {
                             String DNI = sc.next();
                             System.out.print("Introduzca el nombre del desarrollador: ");
                             String nombre = sc.next();
-                            System.out.println("Introduzca el primer apellido del desarrollador: ");
+                            System.out.print("Introduzca el primer apellido del desarrollador: ");
                             String apellido1 = sc.next();
-                            System.out.println("Introduzca el segundo apellido del desarrollador: ");
+                            System.out.print("Introduzca el segundo apellido del desarrollador: ");
                             String apellido2 = sc.next();
-                            System.out.println("Introduzca el email del desarrollador: ");
+                            System.out.print("Introduzca el email del desarrollador: ");
                             String email = sc.next();
-                            System.out.println("Introduzca la fecha de alta del desarrollador (YYYY-MM-DD)");
+                            System.out.print("Introduzca la fecha de alta del desarrollador (YYYY-MM-DD): ");
                             String fecha_alta = sc.next();
 
                             Desarrollador d = new Desarrollador(id, DNI, nombre, apellido1, apellido2, email, fecha_alta);
                             System.out.println(CRUD.actualizarBD(con, d));
                         }
 
+                        // borrado: pedimos el ID y ejecutamos la función
                         case 4 -> {
                             System.out.print("Introduzca el ID del desarrollador: ");
                             int id = sc.nextInt();
@@ -113,8 +124,10 @@ public class App {
         }
         while (input1 != 0);
 
+        // cerramos scanner
         sc.close();
 
+        // cerramos conexión
         try {
             con.close();
         }
