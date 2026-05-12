@@ -49,6 +49,64 @@ public class App {
                     
                     input2 = sc.nextInt();
                     sc.nextLine();
+
+                    switch (input2) {
+                        case 1 -> {
+                            System.out.print("Introduzca el DNI del desarrollador: ");
+                            String DNI = sc.next();
+                            System.out.print("Introduzca el nombre del desarrollador: ");
+                            String nombre = sc.next();
+                            System.out.println("Introduzca el primer apellido del desarrollador: ");
+                            String apellido1 = sc.next();
+                            System.out.println("Introduzca el segundo apellido del desarrollador: ");
+                            String apellido2 = sc.next();
+                            System.out.println("Introduzca el email del desarrollador: ");
+                            String email = sc.next();
+                            System.out.println("Introduzca la fecha de alta del desarrollador (YYYY-MM-DD)");
+                            String fecha_alta = sc.next();
+
+                            Desarrollador d = new Desarrollador(0, DNI, nombre, apellido1, apellido2, email, fecha_alta);
+                            System.out.println(CRUD.insertarBD(con, d));
+                        }
+
+                        case 2 -> {
+                            System.out.print("Introduzca el ID del desarrollador: ");
+                            int id = sc.nextInt();
+                            sc.nextLine();
+
+                            System.out.println(CRUD.consultarBD(con, id));
+                        }
+
+                        case 3 -> {
+                            System.out.print("Introduzca el ID del desarrollador: ");
+                            int id = sc.nextInt();
+                            sc.nextLine();
+
+                            System.out.print("Introduzca el DNI del desarrollador: ");
+                            String DNI = sc.next();
+                            System.out.print("Introduzca el nombre del desarrollador: ");
+                            String nombre = sc.next();
+                            System.out.println("Introduzca el primer apellido del desarrollador: ");
+                            String apellido1 = sc.next();
+                            System.out.println("Introduzca el segundo apellido del desarrollador: ");
+                            String apellido2 = sc.next();
+                            System.out.println("Introduzca el email del desarrollador: ");
+                            String email = sc.next();
+                            System.out.println("Introduzca la fecha de alta del desarrollador (YYYY-MM-DD)");
+                            String fecha_alta = sc.next();
+
+                            Desarrollador d = new Desarrollador(id, DNI, nombre, apellido1, apellido2, email, fecha_alta);
+                            System.out.println(CRUD.actualizarBD(con, d));
+                        }
+
+                        case 4 -> {
+                            System.out.print("Introduzca el ID del desarrollador: ");
+                            int id = sc.nextInt();
+                            sc.nextLine();
+
+                            System.out.println(CRUD.eliminarBD(con, id));
+                        }
+                    }
                 }
                 while (input2 != 0);
             }
