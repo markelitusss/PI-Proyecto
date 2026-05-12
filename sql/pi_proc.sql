@@ -65,7 +65,7 @@ BEGIN
     -- el procedimiento utiliza SQL dińamico para ejecutar varias veces
     -- una sentencia de actualización.
     -- basándonos en el ID del desarrollador actualizamos todos sus datos.
-    SET @declaracion = 'UPDATE desarrollador SET ? = ? WHERE id = ?';
+    SET @declaracion = CONCAT('UPDATE desarrollador SET DNI = ?, nombre = ?, apellido1 = ?, apellido2 = ?, email = ?, fecha_alta = ? WHERE id = ?');
     PREPARE prepared_stmt FROM @declaracion;
 
     SET @id = p_id;
@@ -76,19 +76,7 @@ BEGIN
     SET @email = p_email;
     SET @fecha_alta = p_fecha_alta;
 
-    -- necesitamos hacerlo de esta manera porque la cláusula USING solo acepta variables de usuario
-    SET @campo = 'DNI';
-    EXECUTE prepared_stmt USING @campo, @DNI, @id;
-    SET @campo = 'nombre';
-    EXECUTE prepared_stmt USING @campo, @nombre, @id;
-    SET @campo = 'apellido1';
-    EXECUTE prepared_stmt USING @campo, @apellido1, @id;
-    SET @campo = 'apellido2';
-    EXECUTE prepared_stmt USING @campo, @apellido2, @id;
-    SET @campo = 'email';
-    EXECUTE prepared_stmt USING @campo, @email, @id;
-    SET @campo = 'fecha_alta';
-    EXECUTE prepared_stmt USING @campo, @fecha_alta, @id;
+    EXECUTE prepared_stmt USING @DNI, @nombre, @apellido1, @apellido2, @email, @fecha_alta, @id;
 
     DEALLOCATE PREPARE prepared_stmt;
 END //
