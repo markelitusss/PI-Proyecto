@@ -2,8 +2,8 @@
 // Clase principal programa
 // Markel Canales Ramos 1º DAW
 
-import java.sql.*;
 import java.util.Scanner;
+import java.sql.*;
 
 public class App {
 
@@ -15,6 +15,8 @@ public class App {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int input1, input2;
+
+        Connection con = CRUD.conectar(url, user, password);
 
         do {
             System.out.println("-------- ASIGNACION DE PROYECTOS --------");
@@ -55,5 +57,11 @@ public class App {
 
         sc.close();
 
+        try {
+            con.close();
+        }
+        catch (SQLException e) {
+            System.out.println("Error al cerrar la conexion: " + e.getMessage());
+        }
     }
 }
